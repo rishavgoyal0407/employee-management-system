@@ -52,15 +52,36 @@ export const loginUser = async (req,res) => {
 }
 
 
-export const logoutUser = async () => {
+export const logoutUser = async (req,res) => {
+  res.cookie("token", "", { expires: new Date(0) });
+  res.json({ message: "Logged out" });
+}
+
+export const getMe = async (req,res) => {
+    //req.user comes from authMiddleware.
+
+
+
 
 }
 
-export const getMe = async () => {
+export const changePassword = async (req,res) => {
 
-}
+    try {
+        const {oldPassword,newPassword}=req.body;
+        const user=await User.findById(req.userData._id).select("+password");
+        const isMatch= await bcrypt.compare(oldPassword,userData.password);
+        if (!isMatch) {
+            return res.status(401).json({message:"old password incorrect"});
 
-export const changePassword = async () => {
+        }
 
+        user.password=newPassword;
+        await user.save();
+        res.json({message:"password changed successfully"})
+    } catch (error) {
+        res.status(500).json({message:error.message})
+        
+    }
 }
 
