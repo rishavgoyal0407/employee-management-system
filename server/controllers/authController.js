@@ -22,7 +22,7 @@ export const registerUser = async (req, res) => {
         })
         
         const token = generateToken(newUser._id)
-        res.json({success:true , userDate:newUser,token,message:"Account created successfully"})
+        res.json({success:true , userData:newUser,token,message:"Account created successfully"})
     } catch (error) {
         console.log(error.message)
         res.json({success:false,message:error.message})
