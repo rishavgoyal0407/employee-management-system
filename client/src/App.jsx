@@ -1,34 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+import React from 'react'
+import  { Route ,Routes} from 'react-router-dom'
+import Login from './pages/auth/Login'
+import Dashboard from './pages/admin/Dashboard'
+import AddEmployee from './pages/admin/AddEmployee'
+import AssignTask from './pages/admin/AssignTask'
+import Attendance from './pages/admin/Attendance'
+import AttendanceEmp from './pages/employee/AttendanceEmp'
+import Departments from './pages/admin/Departments'
+import MyTasks from './pages/employee/MyTasks'
+import EmployeeDashboard from './pages/employee/Dashboard'
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Routes>
+        <Route path='/' element={<Login/>}/>
+        <Route path='/add-employee' element={<AddEmployee/>} />
+        <Route path='/admin-dashboard' element={<Dashboard/>}/>
+        <Route path='/assign-task' element={<AssignTask/>}/>
+        <Route path='/admin-attendance-view' element={<Attendance/>}/>
+        <Route path='/my-attendance' element={<AttendanceEmp/>}/>
+        <Route path='/add-departments' element={<Departments/>}/>
+        <Route path='/my-tasks' element={<MyTasks/>}/>
+        <Route path='/employee-dashboard' element={<EmployeeDashboard/>}/>
+
+      </Routes>
+    </div>
   )
 }
 
