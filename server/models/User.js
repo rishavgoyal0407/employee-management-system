@@ -23,7 +23,8 @@ import mongoose from "mongoose";
     },
     employeeId:{
         type:String,
-        unique:true
+        unique:true,
+        sparse: true 
     },
     department:{
         type:mongoose.Schema.Types.ObjectId,

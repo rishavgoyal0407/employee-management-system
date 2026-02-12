@@ -2,6 +2,7 @@
 
 // Creates a new employee account (Admin only)
 export const createEmployee =async (req,res) => {
+   
   
 }
 
