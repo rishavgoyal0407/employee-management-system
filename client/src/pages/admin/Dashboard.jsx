@@ -4,10 +4,12 @@ import Badge from "../../components/ui/Badge";
 import Table from "../../components/ui/Table";
 import Button from "../../components/ui/Button";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Dashboard = () => {
-  
-  const navigate=useNavigate();
+
+  const navigate = useNavigate();
+  const [show, setshow] = useState(false);
 
   return (
     <div className="p-4 md:p-6 space-y-6">
@@ -45,10 +47,10 @@ const Dashboard = () => {
           <Button text="Assign Task" />
           <Button text="Create Department" />
           <Button text="View Attendance" /> */}
-          <button onClick={() =>navigate('/add-employee')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Employee</button>
-          <button onClick={() =>navigate('/assign-task')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Assign Task</button>
-          <button onClick={() =>navigate('/add-departments')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Create Department</button>
-          <button onClick={() =>navigate('/admin-attendance-view')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">View Attendance</button>
+          <button onClick={() => navigate('/add-employee')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Employee</button>
+          <button onClick={() => navigate('/assign-task')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Assign Task</button>
+          <button onClick={() => navigate('/add-departments')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Create Department</button>
+          <button onClick={() => navigate('/admin-attendance-view')} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">View Attendance</button>
         </div>
       </div>
 
@@ -58,19 +60,23 @@ const Dashboard = () => {
           <h2 className="text-lg font-semibold text-gray-800">
             Recently Assigned Tasks
           </h2>
-          <Button text="View All Tasks" />
+          <button onClick={() =>setshow(!show)} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">View All Tasks</button>
         </div>
 
-        <div className="overflow-x-auto">
-          <Table
-            headers={["Employee", "Task", "Due Date", "Status"]}
-            rows={[
-              ["Amit", "Prepare payroll", "20 Jan 2026", "Pending"],
-              ["Riya", "Fix UI bugs", "18 Jan 2026", "Completed"],
-              ["John", "API integration", "22 Jan 2026", "Pending"],
-            ]}
-          />
-        </div>
+
+        {
+          show && <div className="overflow-x-auto">
+            <Table
+              headers={["Employee", "Task", "Due Date", "Status"]}
+              rows={[
+                ["Amit", "Prepare payroll", "20 Jan 2026", "Pending"],
+                ["Riya", "Fix UI bugs", "18 Jan 2026", "Completed"],
+                ["John", "API integration", "22 Jan 2026", "Pending"],
+              ]}
+            />
+          </div>
+        }
+
       </div>
 
       {/* Attendance Overview */}

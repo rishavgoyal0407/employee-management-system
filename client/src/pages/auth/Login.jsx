@@ -1,9 +1,30 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { useState, useEffect } from "react";
+import { AuthContext } from "../../context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
-    const [email, setemail] = useState(null);
-    const [password, setpassword] = useState(null)
+    const [email, setemail] = useState("");
+    const [password, setpassword] = useState("");
+    const { login, authUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        login("login", { email, password });
+        console.log(authUser);
+    }
+
+    useEffect(() => {
+        if (authUser?.role === "admin") {
+            navigate("/admin-dashboard");
+        } else if (authUser?.role === "employee") {
+            navigate("/employee-dashboard");
+        }
+    }, [authUser, navigate]);
+
+
     return (
 
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -29,7 +50,7 @@ const Login = () => {
                     placeholder="Password"
                 />
 
-                <button className="w-full bg-blue-600 text-white py-2 rounded">
+                <button onClick={onSubmitHandler} className="w-full bg-blue-600 text-white py-2 rounded">
                     Login
                 </button>
             </div>
