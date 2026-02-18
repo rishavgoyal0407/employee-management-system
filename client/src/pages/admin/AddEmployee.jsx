@@ -6,7 +6,7 @@ const AddEmployee = () => {
     const [password, setpassword] = useState(null);
     const [department, setdepartment] = useState(null);
 
-    const employeeData={
+     const employeeData={
       name,email,password,department
     }
 

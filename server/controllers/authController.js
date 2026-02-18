@@ -68,10 +68,6 @@ export const loginUser = async (req, res) => {
 }
 
 
-// export const logoutUser = async (req, res) => {
-//     res.cookie("token", "", { expires: new Date(0) });
-//     res.json({ message: "Logged out" });
-// }
 
 // export const getMe = async (req, res) => {
 //     //req.user comes from authMiddleware.
