@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MyTasks from "./MyTasks";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const EmployeeDashboard = () => {
   const [showTasks, setShowTasks] = useState(false);
+  const { setAuthUser } = useContext(AuthContext)
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setAuthUser(null);
+    navigate('/');
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">
@@ -10,12 +21,22 @@ const EmployeeDashboard = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
         <h1 className="text-2xl font-bold">Employee Dashboard</h1>
 
-        <button
-          onClick={() => setShowTasks(!showTasks)}
-          className="px-5 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
-        >
-          {showTasks ? "Hide My Tasks" : "View My Tasks"}
-        </button>
+        {/* Buttons Section */}
+        <div className="flex gap-3">
+          <button
+            onClick={() => setShowTasks(!showTasks)}
+            className="px-5 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
+          >
+            {showTasks ? "Hide My Tasks" : "View My Tasks"}
+          </button>
+
+          <button
+            onClick={logout}
+            className="px-5 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
       {/* Summary Cards */}
@@ -42,7 +63,7 @@ const EmployeeDashboard = () => {
       </div>
 
       {/* My Tasks Section */}
-      {showTasks && <MyTasks/>}
+      {showTasks && <MyTasks />}
 
       {/* Attendance Card */}
       <div className="bg-white rounded-xl shadow p-6 mb-6">
@@ -94,9 +115,7 @@ const EmployeeDashboard = () => {
                 <td className="px-4 py-2">23 Jan 2026</td>
                 <td className="px-4 py-2">9:05 AM</td>
                 <td className="px-4 py-2">6:10 PM</td>
-                <td className="px-4 py-2 text-green-600 font-medium">
-                  Present
-                </td>
+                <td className="px-4 py-2 text-green-600 font-medium">Present</td>
                 <td className="px-4 py-2">8.5h</td>
               </tr>
 
@@ -104,9 +123,7 @@ const EmployeeDashboard = () => {
                 <td className="px-4 py-2">22 Jan 2026</td>
                 <td className="px-4 py-2">—</td>
                 <td className="px-4 py-2">—</td>
-                <td className="px-4 py-2 text-red-500 font-medium">
-                  Absent
-                </td>
+                <td className="px-4 py-2 text-red-500 font-medium">Absent</td>
                 <td className="px-4 py-2">0h</td>
               </tr>
             </tbody>

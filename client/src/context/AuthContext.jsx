@@ -5,9 +5,12 @@ import API from "../axios.js";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authUser, setAuthUser] = useState(null);
+  const [authUser, setAuthUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [token, setToken] = useState(localStorage.getItem("token"));
-  
+
 
   const login = async (state, credentials) => {
     try {
@@ -16,8 +19,9 @@ export const AuthProvider = ({ children }) => {
       if (data.success) {
         setAuthUser(data.userData);
         setToken(data.token);
-        
+
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.userData));
         toast.success(data.message);
       } else {
         toast.error(data.message);

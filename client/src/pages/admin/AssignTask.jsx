@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import { TaskContext } from "../../context/TaskContext";
 
 const AssignTask = () => {
   const [title, settitle] = useState(null);
@@ -8,7 +10,7 @@ const AssignTask = () => {
   const [startDate, setstartDate] = useState(null);
   const [dueDate, setdueDate] = useState(null);
   const [priority, setpriority] = useState(null);
-
+  const {addTask}=useContext(TaskContext);
 
 
   const clearAll=(e) => {
@@ -21,6 +23,9 @@ const AssignTask = () => {
     setpriority('');
     setemployee('')
   }
+
+  
+  
 
   const tasksData={
    title,
@@ -35,6 +40,14 @@ const AssignTask = () => {
 
     const submitHandler= (e) => {
     e.preventDefault();
+    addTask(tasksData);
+     settitle('');
+    setdescription('');
+    setdepartment('');
+    setdueDate('');
+    setstartDate('');
+    setpriority('');
+    setemployee('')
 
     
 
