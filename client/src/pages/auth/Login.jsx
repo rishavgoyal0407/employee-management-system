@@ -7,20 +7,20 @@ const Login = () => {
 
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
-    const { login, authUser } = useContext(AuthContext);
+    const { login, authUser,token } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
         login("login", { email, password });
-        console.log(authUser);
+       
     }
 
     useEffect(() => {
         if (authUser?.role === "admin") {
-            navigate("/admin-dashboard");
+            navigate(`/admin-dashboard/${token}`);
         } else if (authUser?.role === "employee") {
-            navigate("/employee-dashboard");
+            navigate(`/employee-dashboard/${token}`);
         }
     }, [authUser, navigate]);
 

@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const EmployeeDashboard = () => {
   const [showTasks, setShowTasks] = useState(false);
-  const { setAuthUser } = useContext(AuthContext)
+  const { setAuthUser ,authUser} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const logout = () => {
@@ -19,7 +19,7 @@ const EmployeeDashboard = () => {
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">
       {/* Page Title */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
-        <h1 className="text-2xl font-bold">Employee Dashboard</h1>
+        <h1 className="text-2xl font-bold">Hi {authUser.name}</h1>
 
         {/* Buttons Section */}
         <div className="flex gap-3">
