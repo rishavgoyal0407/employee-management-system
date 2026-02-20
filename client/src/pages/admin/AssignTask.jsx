@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import { TaskContext } from "../../context/TaskContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const AssignTask = () => {
   const [title, settitle] = useState(null);
@@ -10,10 +11,13 @@ const AssignTask = () => {
   const [startDate, setstartDate] = useState(null);
   const [dueDate, setdueDate] = useState(null);
   const [priority, setpriority] = useState(null);
-  const {addTask}=useContext(TaskContext);
+  const { tasks } = useContext(TaskContext);
+  const { employees } = useContext(AuthContext);
 
 
-  const clearAll=(e) => {
+
+
+  const clearAll = (e) => {
     e.preventDefault();
     settitle('');
     setdescription('');
@@ -24,24 +28,35 @@ const AssignTask = () => {
     setemployee('')
   }
 
-  
-  
 
-  const tasksData={
-   title,
-   description,
-   department,
-   dueDate,
-   startDate,
-   priority,
-   employee
+
+
+
+
+  const tasksData = {
+    title,
+    description,
+    department,
+    dueDate,
+    startDate,
+    priority,
+    employee
 
   }
 
-    const submitHandler= (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    addTask(tasksData);
-     settitle('');
+
+    const newTask = tasksData;
+    const existingTasks = JSON.parse(localStorage.getItem("assignTasks")) || []
+
+    const updatedTasks = [...existingTasks, newTask];
+    localStorage.setItem("assignTasks", JSON.stringify(updatedTasks));
+
+
+
+    console.log(tasks);
+    settitle('');
     setdescription('');
     setdepartment('');
     setdueDate('');
@@ -49,13 +64,13 @@ const AssignTask = () => {
     setpriority('');
     setemployee('')
 
-    
+
 
 
   }
-  
-  
-  
+
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">
@@ -110,7 +125,7 @@ const AssignTask = () => {
                 Department
               </label>
               <input
-                onChange={(e) =>setdepartment(e.target.value)}
+                onChange={(e) => setdepartment(e.target.value)}
                 value={department}
                 type="text"
                 placeholder="Enter Department"
@@ -124,11 +139,20 @@ const AssignTask = () => {
               <label className="block text-sm font-medium mb-1">
                 Assign To Employee
               </label>
-              <select value={employee} onChange={(e)=>setemployee(e.target.value)} className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Select Employee</option>
-                <option>Ravi Kumar</option>
-                <option>Anjali Sharma</option>
+              <select
+                value={employee}
+                onChange={(e) => setemployee(e.target.value)}
+                className="w-full border rounded-lg px-4 py-2"
+              >
+                <option value="">Select Employee</option>
+
+                {employees?.map((emp) => (
+                  <option key={emp._id} value={emp._id}>
+                    {emp.name}
+                  </option>
+                ))}
               </select>
+
             </div>
           </div>
 
@@ -139,8 +163,8 @@ const AssignTask = () => {
                 Start Date
               </label>
               <input
-              value={startDate}
-                onChange={(e)=>setstartDate(e.target.value)}
+                value={startDate}
+                onChange={(e) => setstartDate(e.target.value)}
                 type="date"
                 className="w-full border rounded-lg px-4 py-2"
               />
@@ -151,8 +175,8 @@ const AssignTask = () => {
                 Due Date
               </label>
               <input
-              value={dueDate}
-              onChange={(e)=>setdueDate(e.target.value)}
+                value={dueDate}
+                onChange={(e) => setdueDate(e.target.value)}
                 type="date"
                 className="w-full border rounded-lg px-4 py-2"
               />
@@ -164,7 +188,7 @@ const AssignTask = () => {
             <label className="block text-sm font-medium mb-1">
               Priority
             </label>
-            <select value={priority} onChange={(e)=>setpriority(e.target.value)} className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select value={priority} onChange={(e) => setpriority(e.target.value)} className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option>Low</option>
               <option>Medium</option>
               <option>High</option>
@@ -174,7 +198,7 @@ const AssignTask = () => {
           {/* Action Button */}
           <div className="flex justify-end gap-3 pt-4">
             <button
-            onClick={clearAll}
+              onClick={clearAll}
               type="reset"
               className="px-5 py-2 rounded-lg border text-gray-600 hover:bg-gray-100"
             >

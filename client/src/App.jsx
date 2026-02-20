@@ -19,13 +19,13 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/add-employee' element={authUser?.role === "admin" ? <AddEmployee /> : <Login />} />
-        <Route path='/admin-dashboard' element={authUser?.role === "admin" ? <Dashboard /> : <Login />} />
+        <Route path='/admin-dashboard/:id' element={authUser?.role === "admin" ? <Dashboard /> : <Login />} />
         <Route path='/assign-task' element={authUser?.role === "admin" ? <AssignTask /> : <Login />} />
         <Route path='/admin-attendance-view' element={authUser?.role === "admin" ? <Attendance /> : <Login />} />
         <Route path='/my-attendance' element={authUser?.role === "employee" ? <AttendanceEmp /> : <Login />} />
         <Route path='/add-departments' element={authUser?.role === "admin" ? <Departments /> : <Login />} />
         <Route path='/my-tasks' element={authUser?.role === "employee" ? <MyTasks /> : <Login />} />
-        <Route path='/employee-dashboard' element={authUser?.role === "employee" ? <EmployeeDashboard /> : <Login />} />
+        <Route path='/employee-dashboard/:id' element={authUser?.role === "employee" ? <EmployeeDashboard /> : <Login />} />
       </Routes>
     </div>
   )

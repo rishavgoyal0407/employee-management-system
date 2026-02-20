@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [show, setShow] = useState(false);
   const { tasks,handleDelete } = useContext(TaskContext);
 
-  const { authUser, setAuthUser } = useContext(AuthContext);
+  const { authUser, setAuthUser,employees } = useContext(AuthContext);
 
   const logout = () => {
     localStorage.removeItem("token");
