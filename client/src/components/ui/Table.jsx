@@ -1,6 +1,6 @@
 import { Trash2 } from "lucide-react";
 
-const Table = ({ headers, tasks, onDelete }) => {
+const Table = ({ headers, allTasks }) => {
   return (
     <div className="w-full overflow-x-auto bg-white rounded-2xl shadow-lg border border-gray-100">
       
@@ -24,14 +24,14 @@ const Table = ({ headers, tasks, onDelete }) => {
 
         {/* Table Body */}
         <tbody>
-          {tasks.length > 0 ? (
-            tasks.map((task, index) => (
+          {allTasks.length > 0 ? (
+            allTasks.map((task, index) => (
               <tr
                 key={index}
                 className="border-b last:border-none hover:bg-blue-50 transition duration-200"
               >
                 <td className="px-6 py-4 font-medium">
-                  {task.employee}
+                  {task.employee.name}
                 </td>
 
                 <td className="px-6 py-4">

@@ -4,21 +4,27 @@ import Badge from "../../components/ui/Badge";
 import Table from "../../components/ui/Table";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { TaskContext } from "../../context/TaskContext";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const { tasks,handleDelete } = useContext(TaskContext);
 
-  const { authUser, setAuthUser,employees } = useContext(AuthContext);
+  const {allTasks} =useContext(AuthContext)
+
+  const { authUser, setAuthUser } = useContext(AuthContext);
+
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+ 
     setAuthUser(null);
     navigate("/");
   };
+
+ 
+  
 
   return (
     <div className="p-4 md:p-6 space-y-6">
@@ -110,8 +116,8 @@ const Dashboard = () => {
           <div className="overflow-x-auto">
             <Table
               headers={["Employee", "Task", "Due Date", "Status","Action"]}
-              tasks={tasks}
-              onDelete={handleDelete}
+              allTasks={allTasks}
+            
             />
           </div>
         )}
