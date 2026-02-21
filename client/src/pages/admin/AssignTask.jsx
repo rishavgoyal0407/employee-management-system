@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useContext } from "react";
-import { TaskContext } from "../../context/TaskContext";
+
 import { AuthContext } from "../../context/AuthContext";
 
 const AssignTask = () => {
-  const [title, settitle] = useState(null);
-  const [description, setdescription] = useState(null);
-  const [employee, setemployee] = useState(null);
-  const [department, setdepartment] = useState(null);
-  const [startDate, setstartDate] = useState(null);
-  const [dueDate, setdueDate] = useState(null);
-  const [priority, setpriority] = useState(null);
-  const { tasks } = useContext(TaskContext);
-  const { employees } = useContext(AuthContext);
+  const [title, settitle] = useState("");
+  const [description, setdescription] = useState("");
+  const [employee, setemployee] = useState("");
+  const [department, setdepartment] = useState("");
+  const [startDate, setstartDate] = useState("");
+  const [dueDate, setdueDate] = useState("");
+  const [priority, setpriority] = useState("");
+
+  const { employees, assignTask } = useContext(AuthContext);
 
 
 
@@ -37,25 +37,24 @@ const AssignTask = () => {
     title,
     description,
     department,
-    dueDate,
+    employee,
     startDate,
-    priority,
-    employee
+    dueDate,
+    priority
+
 
   }
 
+
+   
+   
+
   const submitHandler = (e) => {
     e.preventDefault();
+    assignTask("assigned-tasks", tasksData);
 
-    const newTask = tasksData;
-    const existingTasks = JSON.parse(localStorage.getItem("assignTasks")) || []
-
-    const updatedTasks = [...existingTasks, newTask];
-    localStorage.setItem("assignTasks", JSON.stringify(updatedTasks));
-
-
-
-    console.log(tasks);
+   
+   
     settitle('');
     setdescription('');
     setdepartment('');
@@ -148,7 +147,7 @@ const AssignTask = () => {
 
                 {employees?.map((emp) => (
                   <option key={emp._id} value={emp._id}>
-                    {emp.name}
+                    {emp.name} ({emp.employeeId})
                   </option>
                 ))}
               </select>

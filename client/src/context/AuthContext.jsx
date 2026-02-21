@@ -13,6 +13,8 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [employees, setemployees] = useState([]);
   const [admins, setadmins] = useState([]);
+
+  const [allTasks, setallTasks] = useState([])
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,8 +27,47 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
+
+
+
+    const fetchAlltasks = async (req, res) => {
+
+      try {
+
+        const res = await API.get(`/api/auth/fetch-tasks`);
+
+        setallTasks(res.data);
+
+
+
+      } catch (error) {
+        console.log(error.message)
+
+      }
+
+    }
+
+
+
     fetchEmployees();
+    fetchAlltasks();
+
   }, []);
+
+
+
+
+
+
+  const assignTask = async (state, credentials) => {
+
+    const { data } = await API.post(`/api/auth/${state}`, credentials);
+
+
+
+  }
+
+
 
 
 
@@ -54,7 +95,7 @@ export const AuthProvider = ({ children }) => {
   const addEmployee = async (state, credentials) => {
 
     const { data } = await API.post(`/api/auth/${state}`, credentials);
-   
+
 
     if (data.success) {
 
@@ -72,13 +113,14 @@ export const AuthProvider = ({ children }) => {
   }
 
 
+
   const value = {
     login,
     authUser,
     setAuthUser,
     token,
     addEmployee,
-    employees
+    employees, assignTask,allTasks
   };
 
   return (

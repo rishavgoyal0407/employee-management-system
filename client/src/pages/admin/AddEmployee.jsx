@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
-import { TaskContext } from "../../context/TaskContext";
+
 import { AuthContext } from "../../context/AuthContext";
+import {  useLocation } from "react-router-dom";
 
 const AddEmployee = () => {
   const [name, setName] = useState("");
@@ -8,9 +9,10 @@ const AddEmployee = () => {
   const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [role, setRole] = useState("employee");
+  const location =useLocation();
 
-  const { addEmployee, employees } = useContext(AuthContext);
-  const employeeNames = employees?.map(emp => emp.name);
+  const { addEmployee } = useContext(AuthContext);
+  
 
 
   const employeeData = {
