@@ -68,6 +68,20 @@ export const AuthProvider = ({ children }) => {
   }
 
 
+  const addDept=async (state,credentials) => {
+
+  try {
+
+      const {data}=await API.post(`/api/auth/${state}`, credentials);
+    
+  } catch (error) {
+
+    console.log(error.message)
+    
+  }
+    
+  }
+  
 
 
 
@@ -120,7 +134,7 @@ export const AuthProvider = ({ children }) => {
     setAuthUser,
     token,
     addEmployee,
-    employees, assignTask,allTasks
+    employees, assignTask,allTasks,addDept
   };
 
   return (

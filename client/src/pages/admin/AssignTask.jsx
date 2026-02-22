@@ -70,12 +70,13 @@ const AssignTask = () => {
 
 
 
+return (
+  <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-6 flex justify-center">
+    <div className="w-full max-w-4xl">
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-4 md:p-6">
-      {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 tracking-wide">
           Assign Task
         </h1>
         <p className="text-gray-500">
@@ -83,129 +84,130 @@ const AssignTask = () => {
         </p>
       </div>
 
-      {/* Form Card */}
-      <div className="max-w-3xl bg-white rounded-xl shadow p-6">
-        <form onSubmit={submitHandler} className="space-y-5">
+      {/* Glass Card */}
+      <div className="bg-white/80 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-gray-200">
+
+        <form onSubmit={submitHandler} className="space-y-6">
 
           {/* Task Title */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label className="block text-sm font-medium mb-2 text-gray-700">
               Task Title
             </label>
             <input
-              onChange={(e) => settitle(e.target.value)}
               value={title}
+              onChange={(e) => settitle(e.target.value)}
               type="text"
               placeholder="Enter task title"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
             />
           </div>
 
-          {/* Task Description */}
+          {/* Description */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label className="block text-sm font-medium mb-2 text-gray-700">
               Task Description
             </label>
             <textarea
-              onChange={(e) => setdescription(e.target.value)}
               value={description}
+              onChange={(e) => setdescription(e.target.value)}
               rows="4"
               placeholder="Describe the task clearly"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition resize-none"
             />
           </div>
 
-          {/* Assign To */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-            {/* Department */}
+          {/* Department + Employee */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 Department
               </label>
               <input
-                onChange={(e) => setdepartment(e.target.value)}
                 value={department}
+                onChange={(e) => setdepartment(e.target.value)}
                 type="text"
                 placeholder="Enter Department"
-                className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
               />
-
             </div>
 
-            {/* Employee */}
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 Assign To Employee
               </label>
               <select
                 value={employee}
                 onChange={(e) => setemployee(e.target.value)}
-                className="w-full border rounded-lg px-4 py-2"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
               >
                 <option value="">Select Employee</option>
-
                 {employees?.map((emp) => (
                   <option key={emp._id} value={emp._id}>
                     {emp.name} ({emp.employeeId})
                   </option>
                 ))}
               </select>
-
             </div>
           </div>
 
           {/* Dates */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 Start Date
               </label>
               <input
                 value={startDate}
                 onChange={(e) => setstartDate(e.target.value)}
                 type="date"
-                className="w-full border rounded-lg px-4 py-2"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-2 text-gray-700">
                 Due Date
               </label>
               <input
                 value={dueDate}
                 onChange={(e) => setdueDate(e.target.value)}
                 type="date"
-                className="w-full border rounded-lg px-4 py-2"
+                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
               />
             </div>
           </div>
 
           {/* Priority */}
           <div>
-            <label className="block text-sm font-medium mb-1">
+            <label className="block text-sm font-medium mb-2 text-gray-700">
               Priority
             </label>
-            <select value={priority} onChange={(e) => setpriority(e.target.value)} className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select
+              value={priority}
+              onChange={(e) => setpriority(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
+            >
+              <option value="">Select Priority</option>
               <option>Low</option>
               <option>Medium</option>
               <option>High</option>
             </select>
           </div>
 
-          {/* Action Button */}
-          <div className="flex justify-end gap-3 pt-4">
+          {/* Buttons */}
+          <div className="flex justify-end gap-4 pt-4">
             <button
               onClick={clearAll}
               type="reset"
-              className="px-5 py-2 rounded-lg border text-gray-600 hover:bg-gray-100"
+              className="px-6 py-3 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition"
             >
               Clear
             </button>
+
             <button
               type="submit"
-              className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+              className="px-6 py-3 rounded-xl font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:scale-[1.03] hover:shadow-lg transition-all duration-300"
             >
               Assign Task
             </button>
@@ -214,7 +216,8 @@ const AssignTask = () => {
         </form>
       </div>
     </div>
-  );
-};
+  </div>
+);
+}
 
 export default AssignTask;
