@@ -6,12 +6,12 @@ const AddEmployee = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState("select");
   const [role, setRole] = useState("employee");
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
-  const { addEmployee } = useContext(AuthContext);
+  const { addEmployee, allDepts,fetchEmployees } = useContext(AuthContext);
 
   const createEmp = async () => {
     if (!name || !email || !password || !department) {
@@ -31,6 +31,7 @@ const AddEmployee = () => {
       };
 
       await addEmployee("registerUser", employeeData);
+      fetchEmployees();
 
       // Reset form
       setName("");
@@ -88,13 +89,18 @@ const AddEmployee = () => {
             placeholder="Password (min 6 characters)"
           />
 
-          <input
+          <select
             value={department}
             onChange={(e) => setDepartment(e.target.value)}
-            type="text"
-            className="border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition p-3 rounded-xl outline-none"
-            placeholder="Department"
-          />
+            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
+          >
+            <option value="">Select Department</option>
+            {allDepts?.map((dept) => (
+              <option key={dept._id} value={dept._id}>
+                {dept.deptName} ({dept.code})
+              </option>
+            ))}
+          </select>
 
           <select
             value={role}

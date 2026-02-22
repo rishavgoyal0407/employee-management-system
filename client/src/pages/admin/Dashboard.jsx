@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   const {allTasks} =useContext(AuthContext)
 
-  const { authUser, setAuthUser } = useContext(AuthContext);
+  const { authUser, setAuthUser} = useContext(AuthContext);
 
 
   const logout = () => {

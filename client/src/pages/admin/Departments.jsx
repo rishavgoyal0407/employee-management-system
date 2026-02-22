@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 const Departments = () => {
   const [deptName, setdeptName] = useState("");
   const [description, setdescription] = useState("");
-  const { addDept } = useContext(AuthContext);
+  const { addDept,fetchAllDepts } = useContext(AuthContext);
 
   const deptData = { deptName, description };
 
@@ -12,6 +12,7 @@ const Departments = () => {
     if (!deptName.trim()) return;
 
     addDept("add-departments", deptData);
+    fetchAllDepts()
     setdeptName("");
     setdescription("");
   };

@@ -18,7 +18,7 @@ export const registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = await User.create({
-            name, email, password: hashedPassword, role, department, employeeId: "EMP" + Date.now()
+            name, email, password: hashedPassword, role, department, employeeId: "EMP" + Math.floor(1000 + Math.random() * 90000)
         })
 
         const token = generateToken(newUser._id)

@@ -14,11 +14,22 @@ export const AuthProvider = ({ children }) => {
   const [employees, setemployees] = useState([]);
   const [admins, setadmins] = useState([]);
 
+  const [allDepts, setallDepts] = useState([])
+
   const [allTasks, setallTasks] = useState([])
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchEmployees = async () => {
+    
+
+    fetchAllDepts()
+    fetchEmployees();
+    fetchAlltasks();
+
+  }, []);
+
+
+  const fetchEmployees = async () => {
       try {
         const res = await API.get(`/api/auth/employees`);
         setemployees(res.data);
@@ -29,8 +40,29 @@ export const AuthProvider = ({ children }) => {
 
 
 
+   
 
-    const fetchAlltasks = async (req, res) => {
+    const fetchAllDepts = async (req, res) => {
+
+      try {
+        const res = await API.get(`/api/auth/fetch-depts`);
+
+        setallDepts(res.data)
+
+      } catch (error) {
+
+        console.log(error.message)
+
+      }
+
+
+
+    }
+
+
+
+
+ const fetchAlltasks = async (req, res) => {
 
       try {
 
@@ -49,16 +81,6 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    fetchEmployees();
-    fetchAlltasks();
-
-  }, []);
-
-
-
-
-
-
   const assignTask = async (state, credentials) => {
 
     const { data } = await API.post(`/api/auth/${state}`, credentials);
@@ -68,20 +90,20 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const addDept=async (state,credentials) => {
+  const addDept = async (state, credentials) => {
 
-  try {
+    try {
 
-      const {data}=await API.post(`/api/auth/${state}`, credentials);
-    
-  } catch (error) {
+      const { data } = await API.post(`/api/auth/${state}`, credentials);
 
-    console.log(error.message)
-    
+    } catch (error) {
+
+      console.log(error.message)
+
+    }
+
   }
-    
-  }
-  
+
 
 
 
@@ -134,7 +156,7 @@ export const AuthProvider = ({ children }) => {
     setAuthUser,
     token,
     addEmployee,
-    employees, assignTask,allTasks,addDept
+    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees
   };
 
   return (

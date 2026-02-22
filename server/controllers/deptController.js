@@ -6,7 +6,16 @@ export const setDepartments = async (req, res) => {
 
     try {
 
-        const newDept = await Department.create({ deptName,code: "DEPT" + Date.now(), description });
+
+        if (!deptName || !description) {
+            return res.json({ success: false, message: "Missing Details" })
+        }
+
+        const newDept = await Department.create({
+            deptName, code: "DEPT" + Math.floor(1000 + Math.random() * 9000)
+
+            , description
+        });
 
         res.json({ success: true, newDept, message: "New Department added successfully" })
 
@@ -20,5 +29,22 @@ export const setDepartments = async (req, res) => {
 
 
 
+}
+
+
+export const fetchDept = async (req, res) => {
+
+    try {
+
+        const depts = await Department.find();
+
+        res.json(depts)
+
+
+    } catch (error) {
+
+        console.log(error.message);
+
+    }
 
 }
