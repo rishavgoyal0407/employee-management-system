@@ -39,7 +39,7 @@ const Table = ({ headers, allTasks }) => {
                 </td>
 
                 <td className="px-6 py-4 text-gray-500">
-                  {task.dueDate}
+                  {new Date(task.dueDate).toLocaleDateString("en-IN")} 
                 </td>
                  <td className="px-6 py-4 text-gray-500">
                   {task.priority}
