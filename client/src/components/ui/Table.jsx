@@ -1,6 +1,21 @@
 import { Trash2 } from "lucide-react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Table = ({ headers, allTasks }) => {
+
+
+  const {deleteTask,fetchAlltasks}=useContext(AuthContext)
+
+  const onDelete=async (id) => {
+
+    deleteTask("delete-task",{_id:id})
+    fetchAlltasks();
+
+    
+  }
+  
+
   return (
     <div className="w-full overflow-x-auto bg-white rounded-2xl shadow-lg border border-gray-100">
       
@@ -25,9 +40,9 @@ const Table = ({ headers, allTasks }) => {
         {/* Table Body */}
         <tbody>
           {allTasks.length > 0 ? (
-            allTasks.map((task, index) => (
+            allTasks.map((task) => (
               <tr
-                key={index}
+                key={task._id}
                 className="border-b last:border-none hover:bg-blue-50 transition duration-200"
               >
                 <td className="px-6 py-4 font-medium">
@@ -48,7 +63,7 @@ const Table = ({ headers, allTasks }) => {
                 {/* Delete Button */}
                 <td className="px-6 py-4 text-center">
                   <button
-                    onClick={() => onDelete(index)}
+                    onClick={() => onDelete(task._id)}
                     className="inline-flex items-center justify-center p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-110 shadow-sm"
                   >
                     <Trash2 size={18} />

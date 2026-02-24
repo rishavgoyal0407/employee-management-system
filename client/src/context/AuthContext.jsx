@@ -105,6 +105,20 @@ export const AuthProvider = ({ children }) => {
   }
 
 
+  const deleteTask=async (state,credentials) => {
+
+    try {
+
+       const { data } = await API.put(`/api/auth/${state}`, credentials);
+      
+    } catch (error) {
+
+      console.log(error.message)
+      
+    }
+    
+  }
+  
 
 
 
@@ -156,7 +170,7 @@ export const AuthProvider = ({ children }) => {
     setAuthUser,
     token,
     addEmployee,
-    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees
+    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees,deleteTask
   };
 
   return (
