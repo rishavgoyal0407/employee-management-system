@@ -40,9 +40,24 @@ export const fetchTasks = async (req, res) => {
 
     const tasks = await Tasks.find()
         .populate("employee")
-        
+
 
 
     res.json(tasks);
 
+}
+
+
+export const deleteTasks = async (req, res) => {
+
+
+
+    try {
+        const { _id } = req.body
+        const tasks = await Tasks.findByIdAndDelete({ _id: _id })
+        res.json(tasks)
+    } catch (error) {
+
+        console.log(error.message)
+    }
 }

@@ -137,6 +137,7 @@ const Dashboard = () => {
           <Table
             headers={["Employee", "Task", "Due Date", "Status", "Action"]}
             allTasks={allTasks}
+          
           />
         </div>
       )}
