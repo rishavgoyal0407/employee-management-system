@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
 
   const [allTasks, setallTasks] = useState([])
   const [noOfAssignTask, setnoOfAssignTask] = useState("")
+  const [tEMps, settEMps] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export const AuthProvider = ({ children }) => {
     fetchEmployees();
     fetchAlltasks();
     totalAssignTasks()
+    totalEmps();
 
   }, []);
 
@@ -88,6 +90,25 @@ export const AuthProvider = ({ children }) => {
         const res = await API.get(`/api/auth/fetch-tasks`);
 
         setallTasks(res.data);
+
+
+
+      } catch (error) {
+        console.log(error.message)
+
+      }
+
+    }
+
+
+    
+ const totalEmps = async () => {
+
+      try {
+
+        const res = await API.get(`/api/auth/no-of-emps`);
+
+        settEMps(res.data);
 
 
 
@@ -191,7 +212,7 @@ export const AuthProvider = ({ children }) => {
     setAuthUser,
     token,
     addEmployee,
-    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees,deleteTask,noOfAssignTask
+    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees,deleteTask,noOfAssignTask,tEMps
   };
 
   return (

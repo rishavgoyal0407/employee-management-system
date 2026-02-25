@@ -15,3 +15,17 @@ export const fetchEmployees = async (req, res) => {
 }
 
 
+export const totalEmployees = async (req, res) => {
+
+    try {
+
+        const totalNoOFEmps = await User.countDocuments({ role: "employee" });
+        res.json(totalNoOFEmps);
+
+    } catch (error) {
+
+        console.log(error.message)
+
+    }
+
+}
