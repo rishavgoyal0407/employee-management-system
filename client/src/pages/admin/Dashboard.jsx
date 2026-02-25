@@ -12,8 +12,8 @@ const Dashboard = () => {
 
   const {allTasks} =useContext(AuthContext)
 
-  const { authUser, setAuthUser} = useContext(AuthContext);
-
+  const { authUser, setAuthUser,noOfAssignTask} = useContext(AuthContext);
+   
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -63,7 +63,7 @@ const Dashboard = () => {
 
       <div className="bg-gradient-to-r from-green-400 to-emerald-500 text-white p-6 rounded-3xl shadow-lg hover:scale-105 transition-all">
         <h3 className="text-sm opacity-80">Active Tasks</h3>
-        <p className="text-3xl font-bold mt-2">18</p>
+        <p className="text-3xl font-bold mt-2">{noOfAssignTask}</p>
       </div>
 
       <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-6 rounded-3xl shadow-lg hover:scale-105 transition-all">
