@@ -61,3 +61,19 @@ export const deleteTasks = async (req, res) => {
         console.log(error.message)
     }
 }
+
+
+export const totalAssignTasks = async (req, res) => {
+
+    try {
+
+        const noOfAssignTasks = await Tasks.countDocuments()
+
+        res.json(noOfAssignTasks)
+    } catch (error) {
+
+        console.log(error.message)
+
+    }
+
+}
