@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [employees, setemployees] = useState([]);
   const [admins, setadmins] = useState([]);
- const [totalDept, settotalDept] = useState("")
+  const [totalDept, settotalDept] = useState("")
   const [allDepts, setallDepts] = useState([])
 
   const [allTasks, setallTasks] = useState([])
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
+    if (!token) return;
 
     fetchAllDepts()
     fetchEmployees();
@@ -31,113 +31,113 @@ export const AuthProvider = ({ children }) => {
     totalEmps();
     totalDepts();
 
-  }, []);
+  }, [token]);
 
 
   const fetchEmployees = async () => {
-      try {
-        const res = await API.get(`/api/auth/employees`);
-        setemployees(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-
-
-
-   
-
-    const fetchAllDepts = async (req, res) => {
-
-      try {
-        const res = await API.get(`/api/auth/fetch-depts`);
-
-        setallDepts(res.data)
-
-      } catch (error) {
-
-        console.log(error.message)
-
-      }
-
-
-
+    try {
+      const res = await API.get(`/api/auth/employees`);
+      setemployees(res.data);
+    } catch (error) {
+      console.log(error);
     }
-
-    
-
-    const totalDepts = async () => {
-
-      try {
-        const res = await API.get(`/api/auth/total-depts`);
-
-        settotalDept(res.data)
-
-      } catch (error) {
-
-        console.log(error.message)
-
-      }
+  };
 
 
+
+
+
+
+  const fetchAllDepts = async (req, res) => {
+
+    try {
+      const res = await API.get(`/api/auth/fetch-depts`);
+
+      setallDepts(res.data)
+
+    } catch (error) {
+
+      console.log(error.message)
 
     }
 
 
-    const totalAssignTasks=async () => {
 
-      try {
-        const res = await API.get(`/api/auth/no-of-assign_task`);
-
-        setnoOfAssignTask(res.data)
-
-      } catch (error) {
-
-        console.log(error.message)
-
-      }
-
-      
-    }
-    
-
-
- const fetchAlltasks = async (req, res) => {
-
-      try {
-
-        const res = await API.get(`/api/auth/fetch-tasks`);
-
-        setallTasks(res.data);
+  }
 
 
 
-      } catch (error) {
-        console.log(error.message)
+  const totalDepts = async () => {
 
-      }
+    try {
+      const res = await API.get(`/api/auth/total-depts`);
+
+      settotalDept(res.data)
+
+    } catch (error) {
+
+      console.log(error.message)
 
     }
 
 
-    
- const totalEmps = async () => {
 
-      try {
-
-        const res = await API.get(`/api/auth/no-of-emps`);
-
-        settEMps(res.data);
+  }
 
 
+  const totalAssignTasks = async () => {
 
-      } catch (error) {
-        console.log(error.message)
+    try {
+      const res = await API.get(`/api/auth/no-of-assign_task`);
 
-      }
+      setnoOfAssignTask(res.data)
+
+    } catch (error) {
+
+      console.log(error.message)
 
     }
+
+
+  }
+
+
+
+  const fetchAlltasks = async (req, res) => {
+
+    try {
+
+      const res = await API.get(`/api/auth/fetch-tasks`);
+
+      setallTasks(res.data);
+
+
+
+    } catch (error) {
+      console.log(error.message)
+
+    }
+
+  }
+
+
+
+  const totalEmps = async () => {
+
+    try {
+
+      const res = await API.get(`/api/auth/no-of-emps`);
+
+      settEMps(res.data);
+
+
+
+    } catch (error) {
+      console.log(error.message)
+
+    }
+
+  }
 
 
 
@@ -165,22 +165,22 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const deleteTask=async (state,credentials) => {
+  const deleteTask = async (state, credentials) => {
 
     try {
 
-       const { data } = await API.put(`/api/auth/${state}`, credentials);
-      
+      const { data } = await API.put(`/api/auth/${state}`, credentials);
+
     } catch (error) {
 
       console.log(error.message)
-      
+
     }
-    
+
   }
 
 
-  
+
 
 
 
@@ -191,9 +191,9 @@ export const AuthProvider = ({ children }) => {
       if (data.success) {
         setAuthUser(data.userData);
         setToken(data.token);
-
-        localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.userData));
+        localStorage.setItem("token", data.token);
+
         toast.success(data.message);
       } else {
         toast.error(data.message);
@@ -223,6 +223,17 @@ export const AuthProvider = ({ children }) => {
 
 
   }
+  const checkIn = async () => {
+    try {
+      const { data } = await API.post(`/api/attendance/checkIn`);
+      toast.success("Checked in successfully!");
+    } catch (error) {
+      // Show the server's message (e.g., "Already checked in today")
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
+
+
 
 
 
@@ -232,7 +243,7 @@ export const AuthProvider = ({ children }) => {
     setAuthUser,
     token,
     addEmployee,
-    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees,deleteTask,noOfAssignTask,tEMps,totalDept
+    employees, assignTask, allTasks, addDept, allDepts, fetchAlltasks, fetchAllDepts, fetchEmployees, deleteTask, noOfAssignTask, tEMps, totalDept, checkIn
   };
 
   return (

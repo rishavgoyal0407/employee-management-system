@@ -1,27 +1,32 @@
+import Attendance from "../models/Attendance.js";
 
+export const checkIn = async (req, res) => {
+  try {
+    const userId = req.user.id; 
+    const today = new Date().toISOString().split("T")[0];
 
-export const checkIn=async (req,res) => {
-  
-}
+   
+    const existing = await Attendance.findOne({
+      user: userId,
+      date: today,
+    });
 
-export const checkOut=async (req,res) => {
-  
-}
+    if (existing) {
+      return res.status(400).json({
+        message: "Already checked in today",
+      });
+    }
 
-export const getMyAttendance=async (req,res) => {
-  
-}
+    const attendance = await Attendance.create({
+      user: userId,
+      date: today,
+      checkIn: new Date(), 
+    });
 
-export const getAllAttendance=async (req,res) => {
-  
-}
+    res.status(201).json(attendance);
 
-export const getAttendanceByDate=async (req,res) => {
-  
-}
-
-
-export const updateAttendance=async (req,res) => {
-  
-}
-
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: error.message });
+  }
+};

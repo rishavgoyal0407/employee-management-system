@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Protected = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { authUser } = useContext(AuthContext);
 
-  if (!user) {
+  if (!authUser) {
     return <p className="text-center mt-10">Unauthorized</p>;
   }
 
