@@ -5,6 +5,7 @@ import userRouter from './routes/authRoutes.js';
 import { connectdb } from './config/db.js';
 import http from "http"
 import empRouter from './routes/employeeRoutes.js';
+import attendanceRouter from './routes/attendanceRoutes.js';
 // import { seedAdmin } from './config/seedAdmin.js';
 const app = express();
 const server = http.createServer(app)
@@ -21,6 +22,7 @@ await connectdb();
 
 app.use("/api/auth", userRouter);
 app.use("/api/auth",empRouter);
+app.use("/api/attendance",attendanceRouter);
 
 
 
