@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   const {allTasks} =useContext(AuthContext)
 
-  const { authUser, setAuthUser,noOfAssignTask,tEMps} = useContext(AuthContext);
+  const { authUser, setAuthUser,noOfAssignTask,tEMps,totalDept} = useContext(AuthContext);
    
 
   const logout = () => {
@@ -68,7 +68,7 @@ const Dashboard = () => {
 
       <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-6 rounded-3xl shadow-lg hover:scale-105 transition-all">
         <h3 className="text-sm opacity-80">Departments</h3>
-        <p className="text-3xl font-bold mt-2">5</p>
+        <p className="text-3xl font-bold mt-2">{totalDept}</p>
       </div>
 
       <div className="bg-gradient-to-r from-orange-400 to-yellow-400 text-white p-6 rounded-3xl shadow-lg hover:scale-105 transition-all">

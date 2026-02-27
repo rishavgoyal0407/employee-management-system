@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [employees, setemployees] = useState([]);
   const [admins, setadmins] = useState([]);
-
+ const [totalDept, settotalDept] = useState("")
   const [allDepts, setallDepts] = useState([])
 
   const [allTasks, setallTasks] = useState([])
@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     fetchAlltasks();
     totalAssignTasks()
     totalEmps();
+    totalDepts();
 
   }, []);
 
@@ -41,6 +42,7 @@ export const AuthProvider = ({ children }) => {
         console.log(error);
       }
     };
+
 
 
 
@@ -63,6 +65,24 @@ export const AuthProvider = ({ children }) => {
 
     }
 
+    
+
+    const totalDepts = async () => {
+
+      try {
+        const res = await API.get(`/api/auth/total-depts`);
+
+        settotalDept(res.data)
+
+      } catch (error) {
+
+        console.log(error.message)
+
+      }
+
+
+
+    }
 
 
     const totalAssignTasks=async () => {
@@ -212,7 +232,7 @@ export const AuthProvider = ({ children }) => {
     setAuthUser,
     token,
     addEmployee,
-    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees,deleteTask,noOfAssignTask,tEMps
+    employees, assignTask, allTasks, addDept,allDepts,fetchAlltasks,fetchAllDepts,fetchEmployees,deleteTask,noOfAssignTask,tEMps,totalDept
   };
 
   return (

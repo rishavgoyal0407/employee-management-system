@@ -48,3 +48,22 @@ export const fetchDept = async (req, res) => {
     }
 
 }
+
+
+
+export const totalDepts = async (req, res) => {
+
+    try {
+
+        const depts = await Department.countDocuments();
+
+        res.json(depts)
+
+
+    } catch (error) {
+
+        console.log(error.message);
+
+    }
+
+}
