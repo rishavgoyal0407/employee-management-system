@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Login from './pages/auth/Login'
+import Dashboard from './pages/admin/Dashboard'
+import AddEmployee from './pages/admin/AddEmployee'
+import AssignTask from './pages/admin/AssignTask'
+import Attendance from './pages/admin/Attendance'
+import AttendanceEmp from './pages/employee/AttendanceEmp'
+import Departments from './pages/admin/Departments'
+import MyTasks from './pages/employee/MyTasks'
+import EmployeeDashboard from './pages/employee/Dashboard'
+import { useContext } from 'react'
+import { AuthContext } from './context/AuthContext.jsx'
+const App = () => {
+  const { authUser } = useContext(AuthContext);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/add-employee' element={authUser?.role === "admin" ? <AddEmployee /> : <Login />} />
+        <Route path='/admin-dashboard/:id' element={authUser?.role === "admin" ? <Dashboard /> : <Login />} />
+        <Route path='/assign-task' element={authUser?.role === "admin" ? <AssignTask /> : <Login />} />
+        <Route path='/admin-attendance-view' element={authUser?.role === "admin" ? <Attendance /> : <Login />} />
+        <Route path='/my-attendance' element={authUser?.role === "employee" ? <AttendanceEmp /> : <Login />} />
+        <Route path='/add-departments' element={authUser?.role === "admin" ? <Departments /> : <Login />} />
+        <Route path='/my-tasks' element={authUser?.role === "employee" ? <MyTasks /> : <Login />} />
+        <Route path='/employee-dashboard/:id' element={authUser?.role === "employee" ? <EmployeeDashboard /> : <Login />} />
+      </Routes>
+    </div>
   )
 }
+
 
 export default App
