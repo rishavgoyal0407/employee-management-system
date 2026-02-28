@@ -77,3 +77,20 @@ export const totalAssignTasks = async (req, res) => {
     }
 
 }
+
+export const empTask = async (req, res) => {
+
+    try {
+
+        const { employee } = req.body;
+
+        const task = await Tasks.find({ employee: employee });
+
+        res.json({ task })
+    } catch (error) {
+
+        console.log(error.message)
+
+    }
+
+}

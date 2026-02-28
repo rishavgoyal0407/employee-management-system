@@ -19,10 +19,14 @@ export const AuthProvider = ({ children }) => {
   const [allTasks, setallTasks] = useState([])
   const [noOfAssignTask, setnoOfAssignTask] = useState("")
   const [tEMps, settEMps] = useState("")
+  const [specEmpTask, setspecEmpTask] = useState([])
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) return;
+
+
 
     fetchAllDepts()
     fetchEmployees();
@@ -217,8 +221,6 @@ export const AuthProvider = ({ children }) => {
         navigate(`/employee-dashboard/${token}`);
       }
 
-      console.log(data.userData?.name)
-
     }
 
 
@@ -233,6 +235,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const empTask = async (state, credentials) => {
+
+    try {
+
+
+      const { data } = await API.post(`/api/auth/${state}`, credentials);
+      setspecEmpTask(data.task)
+
+
+    } catch (error) {
+
+      console.log(error.message)
+
+    }
+
+  }
 
 
 
@@ -243,7 +261,7 @@ export const AuthProvider = ({ children }) => {
     setAuthUser,
     token,
     addEmployee,
-    employees, assignTask, allTasks, addDept, allDepts, fetchAlltasks, fetchAllDepts, fetchEmployees, deleteTask, noOfAssignTask, tEMps, totalDept, checkIn
+    employees, assignTask, allTasks, addDept, allDepts, fetchAlltasks, specEmpTask, fetchAllDepts, fetchEmployees, deleteTask, empTask, noOfAssignTask, tEMps, totalDept, checkIn
   };
 
   return (
