@@ -6,6 +6,9 @@ import { AuthContext } from "../../context/AuthContext";
 const EmployeeDashboard = () => {
   const [showTasks, setShowTasks] = useState(false);
   const { setAuthUser, authUser, checkIn } = useContext(AuthContext);
+  const [checkedIn, setcheckedIn] = useState(false)
+  const [checkedOut, setCheckedOut] = useState(false);
+
   const navigate = useNavigate();
 
   const logout = () => {
@@ -18,6 +21,8 @@ const EmployeeDashboard = () => {
   const dashboardData = {
 
   }
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">
@@ -132,14 +137,41 @@ const EmployeeDashboard = () => {
           </div>
 
           <div className="flex gap-3">
-            <button onClick={checkIn} className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm hover:shadow-md">
-              Check In
+            {/* Check In Button */}
+            <button
+              onClick={() => {
+                checkIn();
+                setcheckedIn(true);
+              }}
+              disabled={checkedIn}
+              className={`px-6 py-2 rounded-lg font-medium transition-all duration-300 transform shadow-sm
+      ${checkedIn
+                  ? "bg-green-600 text-white cursor-not-allowed scale-95"
+                  : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:scale-95"
+                }`}
+            >
+              {checkedIn ? "✓ Checked In" : "Check In"}
             </button>
 
-            <button className="px-5 py-2 rounded-lg bg-gray-300 text-gray-600 cursor-not-allowed">
-              Check Out
+            {/* Check Out Button */}
+            <button
+              onClick={() => {
+                setCheckedOut(true);
+              }}
+              disabled={!checkedIn || checkedOut}
+              className={`px-6 py-2 rounded-lg font-medium transition-all duration-300 transform shadow-sm
+      ${checkedOut
+                  ? "bg-purple-600 text-white cursor-not-allowed scale-95"
+                  : checkedIn
+                    ? "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-md active:scale-95"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+            >
+              {checkedOut ? "✓ Checked Out" : "Check Out"}
             </button>
           </div>
+
+
         </div>
       </div>
 
