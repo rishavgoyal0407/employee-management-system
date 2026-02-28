@@ -151,7 +151,7 @@ const AssignTask = () => {
                   <option value="">Select Employee</option>
                   {employees?.map((emp) => (
                     <option key={emp._id} value={emp._id}>
-                      {emp.name} ({emp.employeeId})
+                      {emp.name} ({emp.employeeId}) {emp.department}
                     </option>
                   ))}
                 </select>

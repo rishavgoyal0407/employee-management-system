@@ -66,4 +66,7 @@ export const totalDepts = async (req, res) => {
 
     }
 
+
+
 }
+

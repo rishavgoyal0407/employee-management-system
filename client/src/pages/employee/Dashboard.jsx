@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MyTasks from "./MyTasks";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const EmployeeDashboard = () => {
   const [showTasks, setShowTasks] = useState(false);
-  const { setAuthUser, authUser, checkIn } = useContext(AuthContext);
+  const { setAuthUser, authUser, checkIn, empTask } = useContext(AuthContext);
   const [checkedIn, setcheckedIn] = useState(false)
   const [checkedOut, setCheckedOut] = useState(false);
 
@@ -21,6 +21,12 @@ const EmployeeDashboard = () => {
   const dashboardData = {
 
   }
+
+  useEffect(() => {
+
+    empTask("emp-task", { employee: authUser._id })
+
+  }, [])
 
 
 
@@ -55,7 +61,7 @@ const EmployeeDashboard = () => {
 
         <div className="flex gap-3">
           <button
-            onClick={() => setShowTasks(!showTasks)}
+            onClick={() => { setShowTasks(!showTasks) }}
             className="px-5 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition duration-200 shadow-sm hover:shadow-md"
           >
             {showTasks ? "Hide My Tasks" : "View My Tasks"}

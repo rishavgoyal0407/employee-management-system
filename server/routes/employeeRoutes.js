@@ -1,6 +1,6 @@
 import express from 'express'
 import { fetchEmployees, totalEmployees } from '../controllers/employeeController.js';
-import { assignTasks, deleteTasks, fetchTasks, totalAssignTasks } from '../controllers/TaskController.js';
+import { assignTasks, deleteTasks, empTask, fetchTasks, totalAssignTasks } from '../controllers/TaskController.js';
 import { fetchDept, setDepartments, totalDepts } from '../controllers/deptController.js';
 
 const empRouter=express.Router();
@@ -14,5 +14,7 @@ empRouter.put("/delete-task",deleteTasks)
 empRouter.get("/no-of-assign_task",totalAssignTasks)
 empRouter.get("/no-of-emps",totalEmployees)
 empRouter.get("/total-depts",totalDepts)
+empRouter.post("/emp-task",empTask)
+
 
 export default empRouter;

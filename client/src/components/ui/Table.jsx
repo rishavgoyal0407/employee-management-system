@@ -5,6 +5,14 @@ import { AuthContext } from "../../context/AuthContext";
 const Table = ({ headers, allTasks }) => {
 
 
+  const formatDate = (date) => {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
   const {deleteTask,fetchAlltasks}=useContext(AuthContext)
 
   const onDelete=async (id) => {
@@ -54,7 +62,7 @@ const Table = ({ headers, allTasks }) => {
                 </td>
 
                 <td className="px-6 py-4 text-gray-500">
-                  {new Date(task.dueDate).toLocaleDateString("en-IN")} 
+                  {formatDate(task.dueDate)}
                 </td>
                  <td className="px-6 py-4 text-gray-500">
                   {task.priority}
